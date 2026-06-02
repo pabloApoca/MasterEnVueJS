@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app">
+        <p> <input type="text" v-model="nombre" placeholder="Nombre"> </p>
+        <p> <input type="text" v-model="apellido" placeholder="Apellido"> </p>
+
+        <p>Nombre: {{ nombre }}</p>
+        <p>Apellido: {{ apellido }}</p>
+        <p>Nombre completo: {{ nombreCompleto }}</p>
+        <p>Nombre formateado: {{ nombreFormateado }}</p>
+        <p>Nombre formateado (método): {{ nombreFormateadoMetodo() }}</p>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    nombre: 'CarOLINa',
+                    apellido: 'Gonzalez'
+                }
+            },
+            computed: {
+                nombreCompleto() {
+                    return `${this.nombre} ${this.apellido}`;
+                },
+                nombreFormateado() {
+                    return this.nombre.charAt(0).toUpperCase() + this.nombre.slice(1).toLowerCase() + " " + Date.now();
+                }
+            },
+            methods: {
+                nombreFormateadoMetodo() {
+                    return this.nombre.charAt(0).toUpperCase() + this.nombre.slice(1).toLowerCase() + " " + Date.now();
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>

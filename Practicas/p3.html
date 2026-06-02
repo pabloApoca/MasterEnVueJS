@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app">
+        <h1>{{ nombre }}</h1>
+        <p>Precio: {{ precioCarro }}</p>
+        <p>Vendido: {{ vendido }}</p>
+        <p>Colores: {{ colores.join(', ') }}</p>
+        <p>Marca: {{ carro.marca }}</p>
+        <p>Modelo: {{ carro.modelo }}</p>
+        <p>Año: {{ carro.año }}</p>
+        <p>Precio con aumento {{ precioCarro }} + 500: {{ sumar() }}</p>
+        <p>Precio con descuento {{ precioCarro }} - 500: {{ restar() }}</p>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    nombre: 'Mi Carro',
+                    precioCarro: 20000,
+                    vendido: false,
+                    colores: ['Rojo', 'Azul', 'Negro'],
+                    carro: {
+                        marca: 'Toyota',
+                        modelo: 'Corolla',
+                        año: 2020
+                    }
+                }
+            },
+            methods:{
+                sumar:function(){
+                    return this.precioCarro +500
+                },
+                restar(){
+                    return this.precioCarro - 500
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>
