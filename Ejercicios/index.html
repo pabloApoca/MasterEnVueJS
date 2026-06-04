@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <div id="app">
+        <p>{{ mensaje }} - <button @click="cambio">{{label}}</button></p>
+        <p>Has hecho click en el botón: {{ contador }} veces</p>
+    </div>
+
+    <br>
+    <p> <input type="text" v-model="nombre"> <button @click="agregar">Guardar</button> </p>
+    <p>Lista de nombres:</p>
+    <p> {{ nombres }}</p>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    contador: 0,
+                    control: false,
+                    nombre:'',
+                    nombres:[]
+                }
+            },
+            computed: {
+                mensaje() {
+                    return this.control ? "Hola" : "Chao";
+                },
+                label(){
+                    return this.control ? "Despedirse" : "Saludar";
+                }
+            },
+            methods: {
+                cambio(){
+                    this.contador++;
+                    this.control = !this.control;
+                },
+                agregar(){
+                    if(this.nombre !== ""){
+                        this.nombres.push(this.nombre.toUpperCase());
+                        this.nombre = "";
+                    }
+                }
+            }
+            
+        }).mount('#app')
+    </script>
+</body>
+</html>
