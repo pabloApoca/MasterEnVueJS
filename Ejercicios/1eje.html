@@ -11,12 +11,12 @@
     <div id="app">
         <p>{{ mensaje }} - <button @click="cambio">{{label}}</button></p>
         <p>Has hecho click en el botón: {{ contador }} veces</p>
+        <br>
+        <p> <input type="text" v-model="nombre"> <button @click="agregar">Guardar</button> </p>
+        <p>Lista de nombres:</p>
+        <p v-for="nombre in nombres" :key="nombre">{{ nombre }}</p>
     </div>
 
-    <br>
-    <p> <input type="text" v-model="nombre"> <button @click="agregar">Guardar</button> </p>
-    <p>Lista de nombres:</p>
-    <p> {{ nombres }}</p>
 
     <script>
         const { createApp } = Vue;

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .myDiv{
+        width: 180px;
+        height: 30px;
+        padding: 10px;
+        text-align: center;
+        line-height: 30px;
+        margin: 20px;
+    }
+    .active{
+        border: 3px solid #00ff00;
+    }
+    .notActive{
+        border: 3px solid #ff0000;
+    }
+</style>
+
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <div id="app">
+        <a v-bind:href="url">{{url}}</a>
+
+
+        <div class="myDiv" v-bind:class="claseDinamica" @click="cambio">Esta Activo?: {{ active }}
+            
+        </div>
+            
+            
+        <p> active: {{ active }}</p>
+        <p> active: {{ claseDinamica }}</p>
+    </div>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    url: "https://www.google.com",
+                    active: false,
+                }
+            },
+            computed: {
+                claseDinamica(){
+                    return this.active ? "active" : "notActive";
+                }
+            },
+            methods: {
+                cambio(){
+                    this.active = !this.active;
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

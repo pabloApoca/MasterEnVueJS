@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <div id="app">
+       <input type="text" v-model="pais">
+       <p>{{ pais }}</p>
+       <hr>
+       <button @click="mensaje">Mostrar mensaje</button>
+       <hr>
+        <input type="text" v-model="pregunta">
+        <p>{{ respuesta }}</p>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    pais: "Argentina",
+                    pregunta:"",
+                    respuesta:"",
+                    test: "Valor viejo"
+                }
+            },
+            methods: {
+                mensaje(){
+                    console.log("Metodo mensaje");
+                    this.test = "Valor nuevo";
+                }
+            },
+            watch: {
+                pais:'mensaje',
+                test:function(newValue, oldValue){
+                    console.log("Valor anterior: " + oldValue);
+                    console.log("Valor nuevo: " + newValue);
+                },
+                pregunta: function(){
+                    if(this.pregunta.indexOf("?") === -1){
+                        this.respuesta = "Me has preguntado algo?.. Recuerda el signo ? al final de tu pregunta";
+                        return;
+                    }
+
+                    this.respuesta = "Pensado...";
+
+                    setTimeout(() => {
+                        if(Math.round(Math.random()) === 1){
+                            this.respuesta = "Si";
+                        }else{
+                            this.respuesta = "No";
+                        }
+                    }, 2000);
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <div id="app">
+        <p v-html="link"></p>
+        <p v-html="msg"></p>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    link: "<a href=\"https://www.google.com\">Google</a>",
+                    msg: "<strong>Hola!</strong>",
+                }
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>
