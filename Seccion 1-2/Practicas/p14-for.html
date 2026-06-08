@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <div id="app">
+        
+        <!-- <span v-for="i in 10" :key="i">{{ i }}</span>
+
+        <ul>
+            <li v-for="pais in paises" :key="pais">{{ pais }}</li>
+        </ul>
+
+        <ul>
+            <li v-for="(valor, llave) in carro" :key="llave">{{ llave }}: {{ valor }}</li>
+        </ul> -->
+
+        <div v-for="(producto, index) in productos" :key="index" :style="[producto.cant < 1 ? 'opacity: 0.5;' : '']">
+            <h3 style="color: red" v-if="producto.cant < 1">Producto sin stock</h3>
+            <h3>{{index + 1}} - {{ producto.nombre }}</h3>
+            <p>Precio: {{ producto.precio }}</p>
+            <p>Cantidad: {{ producto.cant }}</p>
+            <input type="number" v-model.number="producto.cant">
+            <hr>
+        </div>
+        
+        <hr>
+        <h2>Total productos: ${{ totalProductos }}</h2>
+        <h2>Total compra: ${{ total }}</h2>
+
+        <input type="text" v-model="nombre">
+        <button @click="addItem">Agregar Producto</button>
+
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    nombre: '',
+                    paises: ['Argentina', 'Francia', 'Italia', 'Alemania', 'Portugal'],
+                    carro: {
+                        marca: 'Toyota',
+                        modelo: '2020',
+                        nombre: "Yaris",
+                        color: 'Rojo',
+                        precio: 20000
+                    },
+                    productos: [
+                        { nombre: 'Laptop', precio: 1000, cant: 0 },
+                        { nombre: 'Smartphone', precio: 500, cant: 10 },
+                        { nombre: 'Tablet', precio: 300, cant: 7 }
+                    ]
+                }
+            },
+            computed: {
+                total() {
+                    return this.productos.reduce((acc, producto) => acc + (producto.precio * producto.cant), 0);
+                },
+                totalProductos() {
+                    return this.productos.reduce((acc, producto) => acc + producto.cant, 0);
+                }
+            },
+            methods: {
+                addItem() {
+                    if (this.nombre !== '' && this.nombre.length > 3) {
+                        this.productos.push({ nombre: this.nombre, precio: 0, cant: 1 });
+                        this.nombre = '';
+                    }
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <div id="app">
+        
+        <div v-show="activo">
+            <p>V-Show</p>
+            <input type="text" v-model="pais">
+        </div>
+        <div v-if="activo">
+            <p>V-IF</p>
+            <input type="text" v-model="pais">
+        </div>
+
+        <hr>
+
+        <p v-if="activo">Hola estoy activo {{ activo }}</p>
+        <p v-else>Hola estoy inactivo {{ activo }}</p>
+        <button @click="activo = !activo">Cambiar estado</button>
+
+        <hr>
+
+        <template v-if="manzanas > 0">
+            <!-- <p>Hay en inventario {{ manzanas }} {{ manzanas== 1 ? 'producto' : 'productos' }}</p> -->
+            <p>Hay en inventario {{ manzanas }} manzanas<span v-if="manzanas > 1">s</span></p>
+            <button @click="manzanas--">Comprar</button>
+        </template>
+        <template v-else-if="peras > 0">
+            <!-- <p>Hay en inventario {{ peras }} {{ peras== 1 ? 'producto' : 'productos' }}</p> -->
+            <p>Hay en inventario {{ peras }} pera<span v-if="peras > 1">s</span></p>
+            <button @click="peras--">Comprar</button>
+        </template>
+
+        <p v-else>No hay frutas en inventario</p>
+
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    activo: true,
+                    manzanas: 5,
+                    peras: 3
+                }
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header id="vueTitle">
+	</header>
+
+	<section id="content">
+		<main id="vueMain">
+			<h1>{{ name }}</h1>
+			<p>Valor: {{ valor }}</p>
+			<button @click="sumar">Sumar</button>
+			<button @click="restar">Restar</button>
+		</main>
+
+		<aside id="vueAside">
+			<h1>{{ name }}</h1>
+			<p>Valor: {{ valor }}</p>
+			<button @click="sumar">Sumar</button>
+			<button @click="restar">Restar</button>
+		</aside>
+	</section>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<script>
+		const vueMain = new Vue({
+			el: '#vueMain',
+			data: {
+				name: 'Instancia 01',
+				valor: 5
+			},
+			methods: {
+				sumar() {
+					this.valor +=5;
+					vueAside.name = 'Cambio el nombre';
+				},
+				restar() {
+					this.valor--;
+				}
+			}
+		});
+
+		const vueAside = new Vue({
+			el: '#vueAside',
+			data: {
+				name: 'Instancia 02',
+				valor: 2
+			},
+			methods: {
+				sumar() {
+					this.valor +=2;
+					vueMain.valor +=2;
+				},
+				restar() {
+					this.valor-=2;
+					vueMain.valor -=2;
+				}
+			}
+		});
+
+	</script>
+
+</body>
+
+</html>
