@@ -14,10 +14,11 @@
 
 	<section id="content">
 		<main id="vueMain">
-			<h1>{{ name }}</h1>
-			<p>Valor: {{ valor }}</p>
-			<button @click="sumar">Sumar</button>
+			<h1 ref="myH1" id="myH1">{{ name }}</h1>
+			<p ref="myP">Valor: {{ valor }}</p>
+			<button @click="sumar" ref="myBtn">Sumar</button>
 			<button @click="restar">Restar</button>
+			<button @click="destruir">Destruir</button>
 		</main>
 
 		<aside id="vueAside">
@@ -39,13 +40,62 @@
 			methods: {
 				sumar() {
 					this.valor +=5;
-					vueAside.name = 'Cambio el nombre';
+					//this.$refs.myP.innerHTML = "XXX";
+					setTimeout(() => {
+						vueAside.name = 'Cambio el nombre';
+					}, 2000);
 				},
 				restar() {
 					this.valor--;
+				},
+				destruir() {
+					this.$destroy();
 				}
+			},
+			beforeCreate() {
+				alert("Antes de crear la instancia " + this.valor)
+				console.log('Antes de crear la instancia');
+			},
+			created() {
+				alert("Instancia creada " + this.valor)
+				console.log('Instancia creada');
+			},
+			beforeMount() {
+				alert("Antes de montar la instancia " + this.valor)
+				console.log('Antes de montar la instancia');
+			},
+			mounted() {
+				alert("Instancia montada " + this.valor)
+				console.log('Instancia montada');
+			},
+			beforeUpdate() {
+				alert("Antes de actualizar la instancia " + this.valor)
+				console.log('Antes de actualizar la instancia');
+			},
+			updated() {
+				alert("Instancia actualizada " + this.valor)
+				console.log('Instancia actualizada');
+			},
+			beforeDestroy() {
+				alert("Antes de destruir la instancia " + this.valor)
+				console.log('Antes de destruir la instancia');
+				this.$refs.myH1.style.color = 'green';
+			},
+			destroyed() {
+				alert("Instancia destruida " + this.valor)
+				console.log('Instancia destruida');
+				//this.$refs.myH1.style.color = 'red';
+				setTimeout(() => {
+						vueAside.name = 'Mi ultimo adios';
+					}, 2000);
+				document.querySelector('#myH1').style.color = "red";
 			}
 		});
+		// vueMain.name = "JS name"
+		// vueMain.sumar();
+		// vueMain.title = "Hola";
+		// vueMain.$refs.myH1.style.color = 'red';
+		// console.log(vueMain.$refs);
 
 		const vueAside = new Vue({
 			el: '#vueAside',
