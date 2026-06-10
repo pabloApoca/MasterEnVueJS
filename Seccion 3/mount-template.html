@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header id="vueHeader">
+		<p>Texto</p>
+	</header>
+
+	<section id="content">
+		<main id="vueMain">
+			<h1 ref="myH1" id="myH1">{{ name }}</h1>
+			<p ref="myP">Valor: {{ valor }}</p>
+			<button @click="sumar" ref="myBtn">Sumar</button>
+			<button @click="restar">Restar</button>
+			<button @click="destruir">Destruir</button>
+		</main>
+
+		<aside id="vueAside">
+			<h1>{{ name }}</h1>
+			<p>Valor: {{ valor }}</p>
+			<button @click="sumar">Sumar</button>
+			<button @click="restar">Restar</button>
+			<button @click="montarla">Montar vueMain</button>
+		</aside>
+	</section>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<script>
+
+		const vueHeader = new Vue({
+			template: '<div><h1>{{title}}</h1></div>',
+			data: {
+				title: 'Instancia Header'
+			}
+		});
+
+		//vueHeader.$mount('#vueHeader');
+		vueHeader.$mount();
+		console.log(vueHeader);
+		document.querySelector('#vueHeader').appendChild(vueHeader.$el);
+
+		const vueMain = new Vue({
+			//el: '#vueMain',
+			data: {
+				name: 'Instancia 01',
+				valor: 5
+			},
+			methods: {
+				sumar() {
+					this.valor +=5;
+					//this.$refs.myP.innerHTML = "XXX";
+					setTimeout(() => {
+						vueAside.name = 'Cambio el nombre';
+					}, 2000);
+				},
+				restar() {
+					this.valor--;
+				},
+				destruir() {
+					this.$destroy();
+				}
+			},
+			beforeCreate() {
+				//alert("Antes de crear la instancia " + this.valor)
+				console.log('Antes de crear la instancia');
+			},
+			created() {
+				//alert("Instancia creada " + this.valor)
+				console.log('Instancia creada');
+			},
+			beforeMount() {
+				//alert("Antes de montar la instancia " + this.valor)
+				console.log('Antes de montar la instancia');
+			},
+			mounted() {
+				//alert("Instancia montada " + this.valor)
+				console.log('Instancia montada');
+			},
+			beforeUpdate() {
+				//alert("Antes de actualizar la instancia " + this.valor)
+				console.log('Antes de actualizar la instancia');
+			},
+			updated() {
+				//alert("Instancia actualizada " + this.valor)
+				console.log('Instancia actualizada');
+			},
+			beforeDestroy() {
+				//alert("Antes de destruir la instancia " + this.valor)
+				console.log('Antes de destruir la instancia');
+				this.$refs.myH1.style.color = 'green';
+			},
+			destroyed() {
+				//alert("Instancia destruida " + this.valor)
+				console.log('Instancia destruida');
+				//this.$refs.myH1.style.color = 'red';
+				setTimeout(() => {
+						vueAside.name = 'Mi ultimo adios';
+					}, 2000);
+				document.querySelector('#myH1').style.color = "red";
+			}
+		});
+		
+		//vueMain.$mount('#vueMain');
+
+		const vueAside = new Vue({
+			el: '#vueAside',
+			data: {
+				name: 'Instancia 02',
+				valor: 2
+			},
+			methods: {
+				sumar() {
+					this.valor +=2;
+					vueMain.valor +=2;
+				},
+				restar() {
+					this.valor-=2;
+					vueMain.valor -=2;
+				},
+				montarla() {
+					vueMain.$mount('#vueMain');
+				}
+			}
+		});
+
+	</script>
+
+</body>
+
+</html>
